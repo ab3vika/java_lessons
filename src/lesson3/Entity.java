@@ -20,7 +20,7 @@ public abstract class Entity implements Movable {
     public void move(int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
-        System.out.println("Entity " + this + " was moved to {x='" + this.posX + "', y='" + this.posY + "'}");
+        System.out.println(String.format("Entity %s was moved to {x='%d', y='%d'}", this, this.posX, this.posY));
     }
 
     @Override

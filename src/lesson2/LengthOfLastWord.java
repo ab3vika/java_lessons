@@ -1,3 +1,5 @@
+package lesson2;
+
 class LengthOfLastWord {
     public int lengthOfLastWord(String s) {
         s = s.trim();
