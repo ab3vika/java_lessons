@@ -20,4 +20,18 @@ public class PassiveEntity extends Entity {
             System.out.println("You cannot set attack for entity " + this);
         }
     }
+
+    public class AngryPassiveEntity {
+        private int causedDamage = 0;
+
+        public int getCausedDamage() {
+            return causedDamage;
+        }
+
+        public void attack(int damage) {
+            if (PassiveEntity.this.canAttack) {
+                causedDamage += damage;
+            }
+        }
+    }
 }
