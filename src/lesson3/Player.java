@@ -4,7 +4,10 @@ public class Player implements Movable {
     private static String status = "Offline";
 
     @Override
-    public void move(int posX, int posY) {
+    public void move(int posX, int posY) throws MoveNegativeException {
+        if (posX < 0 || posY < 0) {
+            throw new MoveNegativeException();
+        }
         System.out.println("Player was moved to {x='" + posX + "', y='" + posY + "'}");
     }
 

@@ -1,7 +1,14 @@
 package lesson3;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+
+    private static final String FILE_PATH = "src/lesson3/Entities.txt";
+
+    public static void main(String[] args) throws MoveNegativeException {
         Animal pig = new Animal("Pig");
         pig.move(2, 4);
         PassiveEntity sheep = new Animal("Sheep");
@@ -22,7 +29,29 @@ public class Main {
         zombie.move(4, 2);
         Player.Authorization playerAuthorization = new Player.Authorization();
         playerAuthorization.logIn();
-        new Player().move(5, 5);
+        Player player = new Player();
+        player.move(5, 5);
         playerAuthorization.logOut();
+        readFromFile();
+        player.move(-1, -1);
+    }
+
+    public static void writeToFile(String line) {
+        try (FileOutputStream output = new FileOutputStream(FILE_PATH, true)) {
+            output.write(line.concat("\n").getBytes());
+        } catch (IOException e) {
+            System.out.println("File wasn't found");
+        }
+    }
+
+    public static void readFromFile() {
+        try (FileInputStream input = new FileInputStream(FILE_PATH)) {
+            int i;
+            while ((i = input.read()) != -1) {
+                System.out.print((char) i);
+            }
+        } catch (IOException e) {
+            System.out.println("File wasn't found");
+        }
     }
 }
