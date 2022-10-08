@@ -1,5 +1,7 @@
 package lesson3;
 
+import static lesson3.Main.writeToFile;
+
 public abstract class Entity implements Movable {
     private String name;
     private int posX;
@@ -8,6 +10,7 @@ public abstract class Entity implements Movable {
     public Entity(String name) {
         this.name = name;
         System.out.println("Entity " + this + " was created");
+        writeToFile(this.name);
     }
 
     public abstract boolean canAttack();
