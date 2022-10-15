@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static java.util.stream.Collectors.toList;
+import static lesson3.Entity.entityList;
+
 public class Main {
 
     private static final String FILE_PATH = "src/lesson3/Entities.txt";
@@ -32,6 +35,8 @@ public class Main {
         Player player = new Player();
         player.move(5, 5);
         playerAuthorization.logOut();
+        entityList.stream().filter(e -> "Pig".equals(e.getName())).forEach(e -> e.setName("Adult" + e.getName()));
+        deleteEntityFromList("Sheep");
         readFromFile();
         player.move(-1, -1);
     }
@@ -53,5 +58,15 @@ public class Main {
         } catch (IOException e) {
             System.out.println("File wasn't found");
         }
+    }
+
+    public static void readEntityList() {
+        System.out.println("Existing entities:");
+        entityList.stream().forEach(e -> System.out.println(e.getName()));
+    }
+
+    public static void deleteEntityFromList(String name) {
+        entityList = entityList.stream().filter(e -> !name.equals(e.getName())).collect(toList());
+        readEntityList();
     }
 }
