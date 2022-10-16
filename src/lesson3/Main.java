@@ -66,7 +66,7 @@ public class Main {
     }
 
     public static void deleteEntityFromList(String name) {
-        entityList = entityList.stream().filter(e -> !name.equals(e.getName())).collect(toList());
+        entityList.remove(entityList.stream().filter(e -> name.equals(e.getName())).findFirst().get());
         readEntityList();
     }
 }
