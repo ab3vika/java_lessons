@@ -8,7 +8,7 @@ public class Player implements Movable {
         if (posX < 0 || posY < 0) {
             throw new MoveNegativeException();
         }
-        System.out.println("Player was moved to {x='" + posX + "', y='" + posY + "'}");
+        System.out.printf("Player was moved to {x='%d', y='%d'}%n", posX, posY);
     }
 
     public static class Authorization {

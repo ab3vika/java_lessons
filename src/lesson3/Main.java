@@ -3,25 +3,28 @@ package lesson3;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import static java.util.stream.Collectors.toList;
-import static lesson3.Entity.entityList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
     private static final String FILE_PATH = "src/lesson3/Entities.txt";
+    private static final List<Entity> entityList = new ArrayList<>();
 
     public static void main(String[] args) throws MoveNegativeException {
         Animal pig = new Animal("Pig");
         pig.move(2, 4);
+
         PassiveEntity sheep = new Animal("Sheep");
         sheep.setAttack(true);
+
         PassiveEntity eagle = new PassiveEntity("Eagle");
         eagle.setAttack(true);
         PassiveEntity.AngryPassiveEntity angryEagle = eagle.new AngryPassiveEntity();
         angryEagle.attack(3);
         angryEagle.attack(2);
-        System.out.println("Damage caused by " + eagle.getName() + ": " + angryEagle.getCausedDamage());
+        System.out.printf("Damage caused by %s: %d%n", eagle.getName(), angryEagle.getCausedDamage());
+
         AggressiveEntity zombie = new AggressiveEntity("Zombie") {
             @Override
             public void move(int posX, int posY) {
@@ -30,14 +33,18 @@ public class Main {
             }
         };
         zombie.move(4, 2);
+
         Player.Authorization playerAuthorization = new Player.Authorization();
         playerAuthorization.logIn();
         Player player = new Player();
         player.move(5, 5);
         playerAuthorization.logOut();
-        entityList.stream().filter(e -> "Pig".equals(e.getName())).forEach(e -> e.setName("Adult" + e.getName()));
-        deleteEntityFromList("Sheep");
+
+        updateEntityInList(pig.getName(), "Adult" + pig.getName());
+        deleteEntityFromList(sheep.getName());
         readFromFile();
+
+        System.out.println("Check exception:");
         player.move(-1, -1);
     }
 
@@ -65,8 +72,18 @@ public class Main {
         entityList.stream().forEach(e -> System.out.println(e.getName()));
     }
 
+    public static void addEntityToList(Entity entity) {
+        entityList.add(entity);
+        readEntityList();
+    }
+
     public static void deleteEntityFromList(String name) {
         entityList.remove(entityList.stream().filter(e -> name.equals(e.getName())).findFirst().get());
+        readEntityList();
+    }
+
+    public static void updateEntityInList(String name, String newName) {
+        entityList.stream().filter(e -> name.equals(e.getName())).forEach(e -> e.setName(newName));
         readEntityList();
     }
 }

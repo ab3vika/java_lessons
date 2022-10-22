@@ -1,14 +1,11 @@
 package lesson3;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import static lesson3.Main.readEntityList;
+import static lesson3.Main.addEntityToList;
 import static lesson3.Main.writeToFile;
 
 public abstract class Entity implements Movable {
-    public static List<Entity> entityList = new ArrayList<>();
     private String name;
     private int posX;
     private int posY;
@@ -17,8 +14,7 @@ public abstract class Entity implements Movable {
         this.name = name;
         System.out.println("Entity " + this + " was created");
         writeToFile(this.name);
-        entityList.add(this);
-        readEntityList();
+        addEntityToList(this);
     }
 
     public abstract boolean canAttack();
@@ -40,7 +36,7 @@ public abstract class Entity implements Movable {
 
     @Override
     public String toString() {
-        return "{name='" + this.getName() + "', canAttack='" + this.canAttack() + "'}";
+        return String.format("{name='%s', canAttack='%b'}", this.getName(), this.canAttack());
     }
 
     @Override
