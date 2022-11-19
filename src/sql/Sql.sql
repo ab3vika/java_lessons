@@ -65,7 +65,7 @@ SELECT COUNT(*) FROM `clients`
 UNION
 SELECT COUNT(*) FROM `categories`
 UNION
-SELECT COUNT(*) FROM `orders`
+SELECT COUNT(*) FROM `orders`;
 
 -- 9. Aggregate function (sum)
 SELECT `client_id`, SUM(`price`) AS 'Total of all orders' FROM `orders` GROUP BY `client_id`;
